@@ -1,0 +1,2 @@
+class AmazonsController < ApplicationController
+end

@@ -1,0 +1,2 @@
+class Ebay < ApplicationRecord
+end
