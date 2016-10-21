@@ -1,0 +1,2 @@
+class ApartmentFeature < ApplicationRecord
+end

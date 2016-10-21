@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :users
+  resources :apartments
   resources :jets
   resources :amazons
   resources :ebays
