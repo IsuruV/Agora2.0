@@ -1,2 +1,0 @@
-class JetsController < ApplicationController
-end

@@ -1,2 +1,0 @@
-class EbaysController < ApplicationController
-end

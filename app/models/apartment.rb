@@ -4,11 +4,11 @@ class Apartment < ApplicationRecord
   def self.apartments_scraper(borough)
   ### index page scraper
     zipcode = "https://www.forrent.com/find/NY/metro-NYC/zips-10001"
-    @links = [1,2]
-    @locations = [1,2]
-    @pictures = [1,2]
-    @price_range = [1,2]
-    @bed_rooms = [1,2]
+    @links = []
+    @locations = []
+    @pictures = []
+    @price_range = []
+    @bed_rooms = []
     page = Nokogiri::HTML(open("http://www.apartments.com/#{borough}-ny/"))
     listing = page.css("div#placardContainer").css("article")
     listing.collect do |list|
