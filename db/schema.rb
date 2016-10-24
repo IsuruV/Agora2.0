@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161021201618) do
+ActiveRecord::Schema.define(version: 20161024204427) do
+
+  create_table "apartment_lists", force: :cascade do |t|
+    t.integer  "list_id"
+    t.integer  "apartment_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "apartments", force: :cascade do |t|
     t.string "links"
@@ -24,6 +31,14 @@ ActiveRecord::Schema.define(version: 20161021201618) do
     t.string "pet_policy"
     t.string "parking"
     t.string "amementies"
+    t.string "borough"
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

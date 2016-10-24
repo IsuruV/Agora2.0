@@ -1,0 +1,8 @@
+<h1>Hello</h1>
+<%@search.each do |apartment|%>
+<% if apartment.links != 'favoriteIcon neutral'%>
+<div >
+<a href="/apartments/<%=apartment.id%>"><img src="<%=apartment.pictures%>" /></a>
+</div>
+<%end%>
+<% end %>
