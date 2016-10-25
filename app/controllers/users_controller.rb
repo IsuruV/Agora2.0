@@ -6,6 +6,9 @@ class UsersController < ApplicationController
 
   def index
     @user = User.new
+    # if current_user
+    #   current_user.creat_default_lists
+    # end
   end
 
   def show

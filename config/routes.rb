@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   #   get '/users/sign_out' => 'devise/sessions#destroy'
   # end
 
-  resources :users
+  # resources :users
   resources :apartment_lists
   resources :apartments
 
@@ -19,8 +19,9 @@ Rails.application.routes.draw do
 
     root "users#index"
   # devise_for :users
+  resources :lists
 
-  resources :users, only: [:show] do
+  resources :users do
     resources :lists
   end
 

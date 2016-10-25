@@ -13,4 +13,13 @@ class User < ApplicationRecord
              user.password = Devise.friendly_token[0,20]
            end
          end
+
+  def creat_default_lists
+    self.listings.find_or_create_by(name:"Brooklyn")
+    self.listings.find_or_create_by(name:"Queens")
+    self.listings.find_or_create_by(name:"Manhattan")
+    self.listings.find_or_create_by(name:"Bronx")
+    self.listings.find_or_create_by(name:"Staten Island")
+  end
+
 end
