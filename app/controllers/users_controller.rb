@@ -9,6 +9,13 @@ class UsersController < ApplicationController
   end
 
   def show
+    # binding.pry
+    sign_out(current_user)
+    redirect_to root_path
+  end
+
+  def create
+
   end
 
 

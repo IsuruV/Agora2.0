@@ -18,6 +18,7 @@ gem 'nokogiri'
 gem 'devise'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
+gem 'omniauth-facebook'
 
 # gem 'watir-webdriver'
 # gem 'selenium-webdriver'

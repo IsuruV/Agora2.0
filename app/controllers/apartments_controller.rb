@@ -21,9 +21,7 @@ class ApartmentsController < ApplicationController
     # binding.pry
   end
 
-  def home_page
-
-  end
+  
 
 
 
