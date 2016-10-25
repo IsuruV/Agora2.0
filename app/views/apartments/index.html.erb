@@ -12,69 +12,59 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-
                 <section id="three" class="no-padding">
                     <div class="container-fluid">
                         <div class="row no-gutter">
-                          <%@search.each do |apartment| %>
+
+                          <%@search.sort_by do |item|%>
+                          <%item[:price_range]%>
+                          <%end.each do |apartment| %>
                             <% if apartment.links != 'favoriteIcon neutral'%>
                             <div class="col-lg-4 col-sm-6">
-
-
-
                                 <a href="#galleryModal" class="gallery-box" data-toggle="modal" data-src="<%=apartment.pictures%>">
-                                    <img src="<%=apartment.pictures%>" class="img-responsive" alt="Image 1">
-
-
-                                    <div class="gallery-box-caption">
-                                        <div class="gallery-box-content">
-                                            <div>
-                                                <i class="icon-lg ion-ios-search"></i>
-                                            </div>
-                                        </div>
-                                    </div>
+                                  <div class="image">
+                                  <img src="<%=apartment.pictures%>" class="img-responsive" alt="Image 1">
+                                    <a href="<%=apartment_path(apartment)%>"><h2><%= apartment.price_range%></h2></a>
+                                  </div>
                                 </a>
                             </div>
                             <% end %>
                               <% end %>
                 </section>
-
-
-
-    <div id="galleryModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- <div id="galleryModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
         <div class="modal-content">
-        	<div class="modal-body">
-        		<img src="//placehold.it/1200x700/222?text=..." id="galleryImage" class="img-responsive" />
-        		<p>
-        		    <br/>
-        		    <button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true">Close <i class="ion-android-close"></i></button>
-        		</p>
-        	</div>
+            <div class="modal-body">
+             <img src="//placehold.it/1200x700/222?text=..." id="galleryImage" class="img-responsive"/>
+                <p>
+                    <br/>
+                    <button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true">Close <i class="ion-android-close"></i></button>
+                </p>
+            </div>
         </div>
         </div>
-    </div>
+    </div> -->
     <div id="aboutModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
-        	<div class="modal-body">
-        	at BootstrapZero</a></p>
-        		<br/>
-        		<button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true"> OK </button>
-        	</div>
+            <div class="modal-body">
+            at BootstrapZero</a></p>
+                <br/>
+                <button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true"> OK </button>
+            </div>
         </div>
         </div>
     </div>
     <div id="alertModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm">
         <div class="modal-content">
-        	<div class="modal-body">
-        		<h2 class="text-center">Nice Job!</h2>
-        		<p class="text-center">You clicked the button, but it doesn't actually go anywhere because this is only a demo.</p>
-        		<p class="text-center"><a href="http://www.bootstrapzero.com">Learn more at BootstrapZero</a></p>
-        		<br/>
-        		<button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true">OK <i class="ion-android-close"></i></button>
-        	</div>
+            <div class="modal-body">
+                <h2 class="text-center">Nice Job!</h2>
+                <p class="text-center">You clicked the button, but it doesn't actually go anywhere because this is only a demo.</p>
+                <p class="text-center"><a href="http://www.bootstrapzero.com">Learn more at BootstrapZero</a></p>
+                <br/>
+                <button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true">OK <i class="ion-android-close"></i></button>
+            </div>
         </div>
         </div>
     </div>
