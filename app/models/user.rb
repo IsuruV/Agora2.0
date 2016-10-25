@@ -15,11 +15,12 @@ class User < ApplicationRecord
          end
 
   def creat_default_lists
-    self.listings.find_or_create_by(name:"Brooklyn")
-    self.listings.find_or_create_by(name:"Queens")
-    self.listings.find_or_create_by(name:"Manhattan")
-    self.listings.find_or_create_by(name:"Bronx")
-    self.listings.find_or_create_by(name:"Staten Island")
+    self.lists.find_or_create_by(name:"Booked Tours")
+    self.lists.find_or_create_by(name:"Brooklyn")
+    self.lists.find_or_create_by(name:"Queens")
+    self.lists.find_or_create_by(name:"Manhattan")
+    self.lists.find_or_create_by(name:"Bronx")
+    self.lists.find_or_create_by(name:"Staten Island")
   end
 
 end
