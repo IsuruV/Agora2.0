@@ -28,12 +28,15 @@
 
 
                       <% if user_signed_in? %>
+
                          <%= link_to "Log Out", destroy_user_session_path(current_user) %>
                         <% else %>
                           <a class="page-scroll" data-toggle="modal" title="A free Bootstrap video landing theme" href="#aboutModal">Sign Up</a>
                         <% end %>
                     </li>
-                    <li><a class="page-scroll" data-toggle="modal" title="A free Bootstrap video landing theme" href="#aboutModal2">Sign In</a></li>
+                    <%  if !user_signed_in? %>
+                      <li><a class="page-scroll" data-toggle="modal" title="A free Bootstrap video landing theme" href="#aboutModal2">Sign In</a></li>
+                    <% end %>
                 </ul>
             </div>
         </div>

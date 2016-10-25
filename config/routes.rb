@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   #   get '/users/sign_out' => 'devise/sessions#destroy'
   # end
 
-  # resources :users
+  resources :users
   resources :apartment_lists
   resources :apartments
 
