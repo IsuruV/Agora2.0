@@ -5,15 +5,12 @@ class ApartmentsController < ApplicationController
 
   def index
 
-    # @first = Apartment.naked_apartments_scraper(params[:location])
-    # @second =  Apartment.apartments_scraper(params[:location])
-    # @search = @first + @second
-    # @search = @first + @second
-    # @search = Apartment.all.where("locations = %#{params[:apartments][:locations]}%")
-    Apartment.naked_apartments_scraper(params[:location])
-    Apartment.apartments_scraper(params[:location])
+    # Apartment.apartments_scraper(params[:location])
+    # Apartment.naked_apartments_scraper(params[:location])
+    #put these two in a thread that runs every 5 minutes..
 
     @search = Apartment.where(borough:params[:location])
+
   end
 
   def show

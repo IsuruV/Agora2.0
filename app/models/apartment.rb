@@ -1,7 +1,7 @@
 require 'pry'
 require 'nokogiri'
 require 'open-uri'
-# binding.pry
+
 class Apartment < ApplicationRecord
  has_many :apartment_lists
  has_many :lists, :through => :apartment_lists
@@ -10,6 +10,7 @@ class Apartment < ApplicationRecord
   #  @show_page_link = []
   @@show_page_link = []
   @@show_page_links = []
+  @show_page_link = []
   def self.apartments_scraper(borough)
   ### index page scraper
     zipcode = "https://www.forrent.com/find/NY/metro-NYC/zips-10001"
@@ -25,17 +26,21 @@ class Apartment < ApplicationRecord
       @bed_rooms << list.css("div").css(".apartmentRentRollupContainer").css("span").css(".unitLabel").text
       @picture << list.css("div").css(".media").css("div").css(".item").first.values[1]
 
-      list.css("a").collect do |items|
+
         begin
-        @@show_page_link << items.values[1]
+         @@show_page_link << list.css(".placardTitle")[0]['href']
+        @show_page_link << list.css(".placardTitle")[0]['href']
         rescue
           @@show_page_link << "no show page"
         end
-        @location << items.values[2]
-      end
+        @location << list.css("div").css(".location").text
+
   end
-# binding.pry
-  (0...@@show_page_link.count).collect{|i| Apartment.find_or_create_by(links: @@show_page_link[i], locations: @location[i], pictures:@picture[i], price_range:@price_range[i], bed_rooms: @bed_rooms[i], borough:borough ) }
+
+  (0...@show_page_link.count).collect{|i| Apartment.find_or_create_by(links: @show_page_link[i], locations: @location[i], pictures:@picture[i], price_range:@price_range[i], bed_rooms: @bed_rooms[i], borough:borough ) }
+    Apartment.all.where(borough: borough).each do |apartment|
+    apartment.apartments_show_scraper
+  end
   # Apartment.where(:links => 'favoriteIcon neutral').destroy_all
 
 
@@ -44,14 +49,19 @@ class Apartment < ApplicationRecord
 
   def apartments_show_scraper
   #### show page
+
     @transportation = []
     # @sqft = []
-    if self.links
-        if @@show_page_link.include?(self.links)
+
+
     show_page = Nokogiri::HTML(open("#{self.links}"))
-    @description = show_page.css("section#descriptionSection").css("p").text
-    @description = show_page.css("div").css(".overView").css("p").text
-    self.description = @description
+
+    if show_page.css("section#descriptionSection").css("p").text == ""
+       @description = show_page.css(".subMarketSection").css(".clamp").css("p").text
+     else
+       @description = show_page.css("section#descriptionSection").css("p").text
+     end
+     self.description = @description
 
     begin
     @pet_policy = show_page.css("section").css(".specGroup").first.css(".specList").css(".petPolicyDetails").text.strip
@@ -78,12 +88,12 @@ class Apartment < ApplicationRecord
       @sqft = rand(500..2000).to_s + " square feet"
     end
     self.sqft = @sqft
+
     show_page.css("div").css(".transportationName").collect do |transportation|
       @transportation << transportation.text
       end
       self.transportation = @transportation.join(",")
-    end
-  end
+        # end
       self.save
   end
 
@@ -113,7 +123,7 @@ def self.naked_apartments_scraper(borough)
   @street_address = []
 
   @pictures = []
-  # @show_page_links = []
+  @show_page_links = []
   @bedrooms = []
   @bathrooms = []
 
@@ -129,7 +139,7 @@ def self.naked_apartments_scraper(borough)
   end
 
   page.css("div").css(".listing-title").each do |link|
-    @@show_page_links << link.attribute("href").value
+    @show_page_links << link.attribute("href").value
   end
 
   # page.css("div").css(".listing-image").each do |picture|
@@ -160,32 +170,36 @@ def self.naked_apartments_scraper(borough)
     end
   end
 
-(0...@@show_page_links.length).each{|i| Apartment.find_or_create_by(links: @@show_page_links[i], locations: @street_address[i], pictures:@pictures[i], bed_rooms: @bedrooms[i], borough:borough ) }
+(0...@show_page_links.length).each{|i| Apartment.find_or_create_by(links: @show_page_links[i], locations: @street_address[i], pictures:@pictures[i], bed_rooms: @bedrooms[i], borough:borough ) }
 
 
   # @features << page.css("div").css(".text")[1].text
-  Apartment.all.each do |apartment|
-    if @@show_page_links.include?(apartment.links)
+  Apartment.all.where(borough: borough).each do |apartment|
+    if @show_page_links.include?(apartment.links)
 
       show_page = Nokogiri::HTML(open("#{apartment.links}"))
+  
+      @description = show_page.css("div#neighborhood-pane").css("p").text
+      apartment.description = @description
+      @transportation = []
+      show_page.css("div").css(".transportation").css("span").collect do |a|
+          @transportation << a.text
+        end
+        apartment.transportation = @transportation.uniq.collect{|a|a.strip}.join(" ,")
       begin
       @features = show_page.css("div").css(".text")[1].text
       rescue
         @features = " "
       end
       apartment.amementies = @features
-      show_page.css("div").css(".listing-title").each do |price|
-        @prices = price.children[1].children[1].children[1].children.text
-        apartment.price_range = @prices
-        end
+        @price = show_page.css("span").css(".price").text
+        apartment.price_range = @price
         apartment.save
       end
     end
 
   end
-  def naked_apartments_show_page_scraper
 
-  end
 end
 
 #####
