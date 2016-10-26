@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :apartments
 
 
+  post "/users/:user_id/lists/add_to_list" => "lists#add_to_list", as: "update_lists"
 
   resources :apartment_lists
 
@@ -24,7 +25,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :lists
   end
-  patch "/users/:user_id/lists/add_to_list" => "lists#add_to_list", as: "update_lists"
+
 
 
   # get '/' => 'apartments#home_page'

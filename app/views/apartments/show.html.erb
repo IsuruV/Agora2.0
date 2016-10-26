@@ -83,14 +83,21 @@ color: #000000;
     <span>Add to List</span>
     <div class="dropdown-content">
 
-      <%= form_for current_user, url: update_lists_url(current_user.id) do |f| %>
-        <input type="hidden" name="apartment_id" value="<%=@apartment.id%>">
+ <!-- update_lists_url(current_user.id) -->
 
-          <br>
-          <%= f.collection_check_boxes :lists, current_user.lists.all, :id, :name %>
-          <br>
-        <%= f.submit %>
-      <% end %>
+ <%= form_for current_user, url: update_lists_path(current_user.id), method: :post do |f| %>
+    <input type="hidden" name="apartment_id" value="<%=@apartment.id%>">
+
+    <%= f.fields_for current_user.lists.build do |list| %>
+       <%= list.label :name %>
+       <%= list.text_field :name %><br>
+
+    <% end %>
+     <%= f.collection_check_boxes :lists, current_user.lists.all, :id, :name %>
+
+
+     <%= f.submit %>
+ <% end %>
 
     </div>
   </div>
@@ -99,13 +106,3 @@ color: #000000;
 </div>
 </body>
 </html>
-
-<!-- # <%= form_for current_user do |f| %>
-#
-#   <%= f.fields_for :lists do |list| %>
-#     <%= list.label :name %>
-#     <%= list.check_box :name %><br>
-#
-#   <% end %>
-#   <%= f.submit %>
-# <% end %> -->
