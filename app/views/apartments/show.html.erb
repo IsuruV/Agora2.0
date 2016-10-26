@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <title><%=@apartment.locations%></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
@@ -17,16 +18,94 @@ body, html {height: 100%}
 <body>
 <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
   <div class="w3-display-topleft w3-padding-large w3-xlarge">
-    <h4>Navuru Inc</h4>
+
   </div>
   <div class="w3-display-middle w3-text-black w3-shadow">
-    <h1><%=@apartment.locations%></h1>
-    <h1><%=@apartment.bed_rooms%></h1>
-    <h3><%= @apartment.description %></h4>
-  </div>
+  <style>
+div.background {
+background: url(klematis.jpg) repeat;
+border: 2px solid black;
+}
+
+div.transbox {
+margin: 30px;
+background-color: #ffffff;
+border: 1px solid black;
+opacity: 0.6;
+filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+
+div.transbox p {
+margin: 5%;
+font-weight: bold;
+color: #000000;
+}
+</style>
+</head>
+<body>
+
+
+<div class="transbox w3-black w3-padding-large ">
+  <h1><%=@apartment.locations%></h1>
+  <h1><%=@apartment.bed_rooms%></h1>
+  <h3><%= @apartment.description %></h4>
+</div>
+
+
+
   <div class="w3-display-bottomleft w3-padding-large">
-    <h4>Agora</h4>
+
+  </div>
+  <div class="w3-display-topright w3-padding-large">
+
+  <style>
+  .dropdown {
+      position: relative;
+      display: inline-block;
+  }
+
+  .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      padding: 12px 16px;
+      z-index: 1;
+  }
+
+  .dropdown:hover .dropdown-content {
+      display: block;
+  }
+  </style>
+
+  <div class="dropdown w3-container w3-green">
+    <span>Add to List</span>
+    <div class="dropdown-content">
+
+      <%= form_for current_user, url: update_lists_url(current_user.id) do |f| %>
+        <input type="hidden" name="apartment_id" value="<%=@apartment.id%>">
+
+          <br>
+          <%= f.collection_check_boxes :lists, current_user.lists.all, :id, :name %>
+          <br>
+        <%= f.submit %>
+      <% end %>
+
+    </div>
+  </div>
+
   </div>
 </div>
 </body>
 </html>
+
+<!-- # <%= form_for current_user do |f| %>
+#
+#   <%= f.fields_for :lists do |list| %>
+#     <%= list.label :name %>
+#     <%= list.check_box :name %><br>
+#
+#   <% end %>
+#   <%= f.submit %>
+# <% end %> -->

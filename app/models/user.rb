@@ -23,4 +23,6 @@ class User < ApplicationRecord
     self.lists.find_or_create_by(name:"Staten Island")
   end
 
+
+
 end

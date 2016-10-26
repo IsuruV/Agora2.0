@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :apartment_lists
 
   resources :apartments
-
+  # get "/users/:id/lists/:lists_id" => "lists#index"
     root "users#index"
   # devise_for :users
   resources :lists
@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   resources :users do
     resources :lists
   end
+  patch "/users/:user_id/lists/add_to_list" => "lists#add_to_list", as: "update_lists"
+
 
   # get '/' => 'apartments#home_page'
   # get '/' => 'apartments#home_page'

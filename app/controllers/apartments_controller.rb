@@ -1,7 +1,7 @@
 require 'pry'
 
 class ApartmentsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:home_page, :list, :index]
+  # skip_before_action :verify_authenticity_token, only: [:home_page, :list, :index]
 
   def index
 
@@ -21,7 +21,7 @@ class ApartmentsController < ApplicationController
     # binding.pry
   end
 
-  
+
 
 
 

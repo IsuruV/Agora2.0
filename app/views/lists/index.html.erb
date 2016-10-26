@@ -20,11 +20,17 @@ body,h1,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
     <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding" title="close menu">
       <i class="fa fa-remove"></i>
     </a>
-    <img src="/w3images/avatar_g2.jpg" style="width:45%;" class="w3-round"><br><br>
-    <h4 class="w3-padding-0"><b><%=current_user.email%></b></h4>
+    <%if current_user.image%>
+  
+
+      <img src="<%=current_user.image%>" style="width:45%;" class="w3-round"><br><br>
+      <%else%>
+      <img src="https://d2wnxi2v4fzw0h.cloudfront.net/assets/fallback/preview_default_profile.png" style="width:45%;" class="w3-round"><br><br>
+      <%end%>
+    <h4 class="w3-padding-0"><b><%=current_user.name%></b></h4>
     <p class="w3-text-grey">Agora</p>
   </div>
-  <a href="#portfolio" onclick="w3_close()" class="w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>PORTFOLIO</a>
+  <a href="lists/new" onclick="w3_close()" class="w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>Create a New List</a>
   <a href="#portfolio" onclick="w3_close()" class="w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>My Account</a>
   <a href="#portfolio" onclick="w3_close()" class="w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>About</a>
 </nav>
@@ -34,30 +40,38 @@ body,h1,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 <div class="w3-main" style="margin-left:300px">
   <!-- Header -->
   <header class="w3-container" id="portfolio">
-    <a href="#"><img src="/w3images/avatar_g2.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+    <a href="#"><img src="https://d2wnxi2v4fzw0h.cloudfront.net/assets/fallback/preview_default_profile.png" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
     <span class="w3-opennav w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
     <%time = Time.new %>
     <% if time.hour < 12 %>
-    <h1><b>Good Morning <%=current_user.email%>!</b></h1>
+    <h1><b>Good Morning <%=current_user.name%>!</b></h1>
     <% elsif time.hour > 12 && time.hour < 18 %>
-    <h1><b>Good Afternoon <%=current_user.email%>!</b></h1>
+    <h1><b>Good Afternoon <%=current_user.name%>!</b></h1>
     <% else %>
-    <h1><b>Good Evening <%=current_user.email%>!</b></h1>
+    <h1><b>Good Evening <%=current_user.name%>!</b></h1>
     <%end%>
     <div class="w3-section w3-bottombar w3-padding-16">
       <span class="w3-margin-right">Filter:</span>
-      <button class="w3-btn">Manhattan</button>
-      <button class="w3-btn w3-white"></i>Brooklyn</button>
-      <button class="w3-btn w3-white w3-hide-small"></i>Queens</button>
-      <button class="w3-btn w3-white w3-hide-small"></i>Bronx</button>
-    </div>
+      <% current_user.lists.each do |list| %>
+      <a href="/users/<%=current_user.id%>/lists/<%=list.id%>"class="w3-btn"><%=list.name%></a>
+      <%end%>
   </header>
+<body>
   <!-- First Photo Grid-->
   <div class="w3-row-padding">
     <section id="three" class="no-padding">
         <div class="container-fluid">
             <div class="row no-gutter">
-              <%current_user.lists[0].apartments.each do |apartment|%>
+              <% @ary = [] %>
+              <%if @current_list %>
+                <%@current_list.apartments.each do |apartment| %>
+                  <%if apartment[:price_range] != nil%>
+                    <%@ary << apartment%>
+                  <%end%>
+                <%end%>
+                <%@ary.sort_by do |apartment|%>
+                  <%apartment[:price_range]%>
+                <%end.each do |apartment| %>
                 <% if apartment.links != 'favoriteIcon neutral'%>
                 <div class="col-lg-4 col-sm-6">
                     <a href="#galleryModal" class="gallery-box" data-toggle="modal" data-src="<%=apartment.pictures%>">
@@ -68,7 +82,8 @@ body,h1,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
                     </a>
                 </div>
                 <% end %>
-                  <% end %>
+              <%end%>
+            <%end%>
     </section>
   </div>
   <!-- Pagination -->
