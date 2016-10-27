@@ -15,8 +15,13 @@
                 <section id="three" class="no-padding">
                     <div class="container-fluid">
                         <div class="row no-gutter">
-
-                          <%@search.sort_by do |item|%>
+                          <%@ary = []%>
+                          <%@search.each do |apartment| %>
+                            <% if apartment.price_range %>
+                              <% @ary << apartment %>
+                            <% end %>
+                          <% end %>
+                          <%@ary.sort_by do |item|%>
                           <%item[:price_range]%>
                           <%end.each do |apartment| %>
                             <% if apartment.links != 'favoriteIcon neutral'%>

@@ -12,26 +12,22 @@ Rails.application.routes.draw do
   resources :apartments
 
 
-  post "/users/:user_id/lists/add_to_list" => "lists#add_to_list", as: "update_lists"
 
   resources :apartment_lists
 
   resources :apartments
-  # get "/users/:id/lists/:lists_id" => "lists#index"
-    root "users#index"
-  # devise_for :users
+
   resources :lists
 
   resources :users do
     resources :lists
   end
 
+  post '/users/location/:location_id' => "users#location"
+  post "/users/:user_id/lists/add_to_list" => "lists#add_to_list", as: "update_lists"
+  get "/users/:id/lists/:lists_id" => "lists#index"
+  root "users#index"
 
-
-  # get '/' => 'apartments#home_page'
-  # get '/' => 'apartments#home_page'
-  # post '/apartments/list' => 'apartments#list'
-  # get '/' => 'users#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

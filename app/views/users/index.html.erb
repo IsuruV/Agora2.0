@@ -6,6 +6,11 @@
     <meta name="description" content="This is a free Bootstrap landing page theme created for BootstrapZero. Feature video background and one page design." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Codeply">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
@@ -42,8 +47,15 @@
   </head>
   <body>
     <form  action="/apartments" method="get">
-      <input type="text" name="location" placeholder="Enter Borough">
+      <input type="text" name="location" placeholder="Enter Borough" value= "<%=@location if @location%>">
     </form>
+
+    <form class="" action="/users" method="get">
+      <input type="hidden" name="location" value="<%=fetch_location%>">
+      <button class="w3-btn w3-purple w3-small" type="submit" name="button">Current Location</button>
+    </form>
+
+
   </body>
             </div>
         </div>

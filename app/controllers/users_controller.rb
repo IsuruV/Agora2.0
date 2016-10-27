@@ -5,6 +5,15 @@ class UsersController < ApplicationController
   end
 
   def index
+    # binding.pry
+    if params[:location]
+        if params[:location] == "New York"
+        @location = "manhattan"
+      else
+        @location = params[:location]
+      end
+   end
+
     # @user = User.new
     # if current_user
     #   current_user.creat_default_lists
@@ -14,13 +23,16 @@ class UsersController < ApplicationController
   def show
     # binding.pry
     sign_out(current_user)
+    flash[:message] = "You are logged off"
     redirect_to root_path
   end
 
   def create
-  
 
   end
 
+  def location
+    # binding.pry
+  end
 
 end

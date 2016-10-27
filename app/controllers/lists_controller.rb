@@ -5,13 +5,18 @@ class ListsController < ApplicationController
 
   def new
     # binding.pry
-    # if current_user.id == params[:user_id].to_i
+  if params[:user_id]
+      if current_user.id == params[:user_id].to_i
+      @user = current_user
+      @list = @user.lists.new
+    else
+      redirect_to root_path
+      flash[:error] = "noope"
+    end
+  else
     @user = current_user
     @list = @user.lists.new
-  # else
-  #   redirect_to root_path
-  #   flash[:error] = "noope"
-  # end
+  end
 end
 
   def add_to_list
@@ -29,7 +34,7 @@ end
       end
     end
 
-    if params[:user][:list][:name]
+    if params[:user][:list][:name] != ""
       @current_list = current_user.lists.find_or_create_by(name:params[:user][:list][:name])
       @current_list.apartments << @apartment
     end
@@ -42,8 +47,8 @@ end
 
 
   def index
-    if params[:list_id]
-      @current_list = current_user.lists.find_by_id(params[:list_id])
+    if params[:lists_id]
+      @current_list = current_user.lists.find_by_id(params[:lists_id])
 
     else
         @current_list = current_user.lists.first
@@ -68,20 +73,7 @@ end
 
   def update
     # binding.pry
-    @lists = []
-    @apartment = Apartment.find(params[:apartment_id])
-    params[:user][:lists].each do |list_id|
-      if list_id != ""
-        @lists << current_user.lists.find(list_id)
-      end
-    end
-    @lists.each do |list|
-      if !list.apartments.include?(@apartment)
-        list.apartments << @apartment
-      end
-    end
-    flash[:message] = "Added to List"
-      redirect_to(:back)
+
   end
 
 end
