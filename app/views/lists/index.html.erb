@@ -51,7 +51,7 @@ body,h1,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
     <div class="w3-section w3-bottombar w3-padding-16">
       <span class="w3-margin-right">Filter:</span>
       <% current_user.lists.each do |list| %>
-      <a href="/users/<%=current_user.id%>/lists/<%=list.id%>"class="w3-btn"><%=list.name%></a>
+      <a href="/users/<%=current_user.id%>/lists/<%=list.id%>"class="w3-btn"><%=list.name%><%=link_to "x", delete_list_path(list)%></a>
       <%end%>
   </header>
 <body>
@@ -76,6 +76,8 @@ body,h1,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
                       <div class="image">
                       <img src="<%=apartment.pictures%>" class="img-responsive" alt="Image 1">
                         <a href="<%=apartment_path(apartment)%>"><h2><%= apartment.price_range%></h2></a>
+                        <!-- <%=link_to "delete", delete_apartment_from_list_path(apartment,@current_list.id)%> -->
+                        <a href="/lists/<%=@current_list.id%>/apartments/<%=apartment.id%>/delete_apartment_from_list">Delete</a>
                       </div>
                     </a>
                 </div>

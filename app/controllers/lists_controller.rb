@@ -5,18 +5,19 @@ class ListsController < ApplicationController
 
   def new
     # binding.pry
-  if params[:user_id]
-      if current_user.id == params[:user_id].to_i
+  # if params[:user_id]
+  #     if current_user.id == params[:user_id].to_i
       @user = current_user
       @list = @user.lists.new
-    else
-      redirect_to root_path
-      flash[:error] = "noope"
-    end
-  else
-    @user = current_user
-    @list = @user.lists.new
-  end
+  #   else
+  #     redirect_to root_path
+  #     flash[:error] = "noope"
+  #   end
+  # else
+  #   @user = current_user
+  #   @list = @user.lists.new
+  # end
+
 end
 
   def add_to_list
@@ -47,6 +48,7 @@ end
 
 
   def index
+    # binding.pry
     if params[:lists_id]
       @current_list = current_user.lists.find_by_id(params[:lists_id])
 
@@ -69,11 +71,28 @@ end
 
 
   def show
+
   end
 
   def update
-    # binding.pry
 
   end
 
+  def delete_list
+    @list = List.find_by_id(params[:list_id])
+    @list.destroy
+    redirect_to user_lists_path(current_user)
+  end
+
+  def delete_apartment_from_list
+    @list = List.find_by_id(params[:list_id])
+    @apartment = Apartment.find_by_id(params[:apartment_id])
+    @list.apartments.delete(@apartment)
+    redirect_to user_lists_path(current_user)
+  end
+
 end
+
+
+# <span><%=link_to "x", delete_list_path(list)%></span>
+  # <div class="w3-black"> <%=link_to "delete", delete_apartment_from_list_path(apartment,@current_list.id)%></div>

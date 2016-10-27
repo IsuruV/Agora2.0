@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<title><%=@apartment.locations%></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+    background-image: url('<%=@apartment.pictures%>');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+</style>
+<body>
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+  <div class="w3-display-topleft w3-padding-large w3-xlarge">
+
+  </div>
+  <div class="w3-display-middle w3-text-black w3-shadow">
+  <style>
+div.background {
+background: url(klematis.jpg) repeat;
+border: 2px solid black;
+}
+
+div.transbox {
+margin: 30px;
+background-color: #ffffff;
+border: 1px solid black;
+opacity: 0.6;
+filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+
+div.transbox p {
+margin: 5%;
+font-weight: bold;
+color: #000000;
+}
+</style>
+</head>
+<body>
+
+
+<div class="transbox w3-black w3-padding-large ">
+  <h1><%=@apartment.locations%></h1>
+  <h1><%=@apartment.bed_rooms%></h1>
+  <h3><%= @apartment.description %></h4>
+</div>
+
+
+
+  <div class="w3-display-bottomleft w3-padding-large">
+
+  </div>
+  <div class="w3-display-topright w3-padding-large">
+
+  <style>
+  .dropdown {
+      position: relative;
+      display: inline-block;
+  }
+
+  .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #000000;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      padding: 12px 16px;
+      z-index: 1;
+  }
+
+  .dropdown:hover .dropdown-content {
+      display: block;
+  }
+  </style>
+
+  <div class="dropdown w3-container w3-green">
+    <span>Add to List</span>
+    <div class="dropdown-content">
+
+ <!-- update_lists_url(current_user.id) -->
+ <% if current_user %>
+   <%= form_for current_user, url: update_lists_path(current_user.id), method: :post do |f| %>
+      <input type="hidden" name="apartment_id" value="<%=@apartment.id%>">
+
+      <%= f.fields_for current_user.lists.build do |list| %>
+         <%= list.label :name %>
+         <%= list.text_field :name %><br>
+
+      <% end %>
+       <%= f.collection_check_boxes :lists, current_user.lists.all, :id, :name %>
+
+       <%= f.submit %>
+       <% end %>
+       <% else %>
+          <%= link_to "Login", new_user_session_path %> <br>
+                        Or <br>
+          <%= link_to "Sign Up",  new_user_registration_path%> <br>
+                        To create A list
+
+       <% end %>
+
+    </div>
+  </div>
+
+  </div>
+
+  <div class="w3-display-topleft w3-padding-large">
+
+  <style>
+  .dropdown {
+      position: relative;
+      display: inline-block;
+  }
+
+  .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #000000;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      padding: 12px 16px;
+      z-index: 1;
+  }
+
+  .dropdown:hover .dropdown-content {
+      display: block;
+  }
+  </style>
+
+  <div class="dropdown w3-container w3-red">
+    <span>Book A Tour</span>
+    <div class="dropdown-content">
+
+ <!-- update_lists_url(current_user.id) -->
+ <% if current_user %>
+   <%= form_for current_user, url: update_lists_path(current_user.id), method: :post do |f| %>
+      <input type="hidden" name="apartment_id" value="<%=@apartment.id%>">
+
+        <%= f.date_select :name %>
+
+       <%= f.submit %>
+       <% end %>
+       <% else %>
+          <%= link_to "Login", new_user_session_path %> <br>
+                        Or <br>
+          <%= link_to "Sign Up",  new_user_registration_path%> <br>
+                        To create A list
+
+       <% end %>
+
+    </div>
+  </div>
+
+  </div>
+
+</div>
+</body>
+</html>

@@ -29,7 +29,7 @@ class Apartment < ApplicationRecord
 
         begin
          @@show_page_link << list.css(".placardTitle")[0]['href']
-        @show_page_link << list.css(".placardTitle")[0]['href']
+        @show_page_link = list.css("header").css(".placardHeader").css("a").first.values[1]
         rescue
           @@show_page_link << "no show page"
         end
@@ -178,7 +178,7 @@ def self.naked_apartments_scraper(borough)
     if @show_page_links.include?(apartment.links)
 
       show_page = Nokogiri::HTML(open("#{apartment.links}"))
-  
+
       @description = show_page.css("div#neighborhood-pane").css("p").text
       apartment.description = @description
       @transportation = []
@@ -201,5 +201,4 @@ def self.naked_apartments_scraper(borough)
   end
 
 end
-
 #####

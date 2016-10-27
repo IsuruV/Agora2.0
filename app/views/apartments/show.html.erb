@@ -1,164 +1,123 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
+     <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="../assets/css/main.css" />
+        <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+    </head>
+    <body class="is-loading-0 is-loading-1 is-loading-2">
+        <!-- Main -->
+            <div id="main">
+                <!-- Header -->
+                    <header id="header">
+            <div class="dropdown w3-container w3-green">
+              <% if user_signed_in? %>
+                <%= link_to "My Portfolio", user_lists_path(current_user) %>
+                <%end%>
+              <br>
 
-<title><%=@apartment.locations%></title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<style>
-body,h1 {font-family: "Raleway", sans-serif}
-body, html {height: 100%}
-.bgimg {
-    background-image: url('<%=@apartment.pictures%>');
-    min-height: 100%;
-    background-position: center;
-    background-size: cover;
-}
-</style>
-<body>
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-  <div class="w3-display-topleft w3-padding-large w3-xlarge">
+              <div class="dropdown-content">
+                <% if current_user %>
+           <%= form_for current_user, url: update_lists_path(current_user.id), method: :post do |f| %>
+              <input type="hidden" name="apartment_id" value="<%=@apartment.id%>">
+              <%= f.fields_for current_user.lists.build do |list| %>
+                 <%= list.label :name %>
+                 <%= list.text_field :name %><br>
+              <% end %>
+               <%= f.collection_check_boxes :lists, current_user.lists.all, :id, :name %>
+               <%= f.submit %>
+           <% end %>
+           <% end %>
+              </div>
+            </div>
+                    </header>
+                <!-- Thumbnail -->
+                    <section id="thumbnails">
+                        <article>
+                            <a class="thumbnail" href="<%=@apartment.pictures%>" data-position="left center"><img src="<%=@apartment.pictures%>" alt="" /></a>
+                            <h2><%=@apartment.locations%></h2>
+                            <p><%=@apartment.bed_rooms%></p>
+                        </article>
+            <p>
+                          <%=@apartment.description%>
+                        </p>
+                        <!-- <article>
+                            <a class="thumbnail" href="../images/fulls/01.jpg"><img src="../images/thumbs/01.jpg" alt="" /></a>
+                            <h2>Ladybug Insect Nature</h2>
+                            <p>Sed velit lacus, laoreet at venenatis convallis in lorem tincidunt.</p>
+                        </article>
+                        <article>
+                            <a class="thumbnail" href="../images/fulls/03.jpg" data-position="top center"><img src="../images/thumbs/03.jpg" alt="" /></a>
+                            <h2>Bokeh Close Up Nature</h2>
+                            <p>Maecenas eleifend tellus ut turpis eleifend, vitae pretium faucibus.</p>
+                        </article>
+                        <article>
+                            <a class="thumbnail" href="../images/fulls/04.jpg"><img src="../images/thumbs/04.jpg" alt="" /></a>
+                            <h2>Sloe Nature Crop Berry</h2>
+                            <p>Tristique in nulla vel congue. Sed sociis natoque parturient nascetur.</p>
+                        </article>
+                        <article>
+                            <a class="thumbnail" href="../images/fulls/05.jpg" data-position="top center"><img src="../images/thumbs/05.jpg" alt="" /></a>
+                            <h2>Kingfisher Bird Aviary Color Nature Animal Beak</h2>
+                            <p>In pellentesque cursus velit id posuere. Donec vehicula nulla.</p>
+                        </article>
+                        <article>
+                            <a class="thumbnail" href="../images/fulls/06.jpg"><img src="../images/thumbs/06.jpg" alt="" /></a>
+                            <h2>Stork Bird Animal Fly White Stork Rattle Stork</h2>
+                            <p>Nulla dignissim libero maximus tellus varius dictum ut posuere magna.</p>
+                        </article>
+                        <article>
+                            <a class="thumbnail" href="../images/fulls/07.jpg"><img src="../images/thumbs/07.jpg" alt="" /></a>
+                            <h2>Butterfly Nature Living Nature</h2>
+                            <p>Etiam ultricies, lorem quis efficitur porttitor, facilisis ante orci urna.</p>
+                        </article>
+                        <article>
+                            <a class="thumbnail" href="../images/fulls/08.jpg"><img src="../images/thumbs/08.jpg" alt="" /></a>
+                            <h2>Ladybug Insect Nature Meadow</h2>
+                            <p>Nunc egestas congue lorem. Nullam dictum placerat ex sapien tortor mattis.</p>
+                        </article>
+                        <article>
+                            <a class="thumbnail" href="../images/fulls/09.jpg"><img src="../images/thumbs/09.jpg" alt="" /></a>
+                            <h2>Morbi eget vitae adipiscing</h2>
+                            <p>In quis vulputate dui. Maecenas metus elit, dictum praesent lacinia lacus.</p>
+                        </article>
+                        <article>
+                            <a class="thumbnail" href="../images/fulls/10.jpg"><img src="../images/thumbs/10.jpg" alt="" /></a>
+                            <h2>Kolos Grass Meadow Field Green Nature Plant</h2>
+                            <p>Vestibulum ante ipsum primis in faucibus orci luctus ac tincidunt dolor.</p>
+                        </article>
+                        <article>
+                            <a class="thumbnail" href="../images/fulls/04.jpg"><img src="../images/thumbs/04.jpg" alt="" /></a>
+                            <h2>Pharetra ex non faucibus</h2>
+                            <p>Ut sed magna euismod leo laoreet congue. Fusce congue enim ultricies.</p>
+                        </article>
+                        <article>
+                            <a class="thumbnail" href="../images/fulls/12.jpg"><img src="../images/thumbs/12.jpg" alt="" /></a>
+                            <h2>Flower Floral Blossom Nature Spring Summer Bloom</h2>
+                            <p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
+                        </article> -->
+                    </section>
+                <!-- Footer -->
+                    <footer id="footer">
+                        <ul class="copyright text-center">
+             <h3>
+               Agora
+               
+             </h3>
 
-  </div>
-  <div class="w3-display-middle w3-text-black w3-shadow">
-  <style>
-div.background {
-background: url(klematis.jpg) repeat;
-border: 2px solid black;
-}
-
-div.transbox {
-margin: 30px;
-background-color: #ffffff;
-border: 1px solid black;
-opacity: 0.6;
-filter: alpha(opacity=60); /* For IE8 and earlier */
-}
-
-div.transbox p {
-margin: 5%;
-font-weight: bold;
-color: #000000;
-}
-</style>
-</head>
-<body>
-
-
-<div class="transbox w3-black w3-padding-large ">
-  <h1><%=@apartment.locations%></h1>
-  <h1><%=@apartment.bed_rooms%></h1>
-  <h3><%= @apartment.description %></h4>
-</div>
-
-
-
-  <div class="w3-display-bottomleft w3-padding-large">
-
-  </div>
-  <div class="w3-display-topright w3-padding-large">
-
-  <style>
-  .dropdown {
-      position: relative;
-      display: inline-block;
-  }
-
-  .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #000000;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      padding: 12px 16px;
-      z-index: 1;
-  }
-
-  .dropdown:hover .dropdown-content {
-      display: block;
-  }
-  </style>
-
-  <div class="dropdown w3-container w3-green">
-    <span>Add to List</span>
-    <div class="dropdown-content">
-
- <!-- update_lists_url(current_user.id) -->
- <% if current_user %>
-   <%= form_for current_user, url: update_lists_path(current_user.id), method: :post do |f| %>
-      <input type="hidden" name="apartment_id" value="<%=@apartment.id%>">
-
-      <%= f.fields_for current_user.lists.build do |list| %>
-         <%= list.label :name %>
-         <%= list.text_field :name %><br>
-
-      <% end %>
-       <%= f.collection_check_boxes :lists, current_user.lists.all, :id, :name %>
-
-       <%= f.submit %>
-       <% end %>
-       <% else %>
-          <%= link_to "Login", new_user_session_path %> <br>
-                        Or <br>
-          <%= link_to "Sign Up",  new_user_registration_path%> <br>
-                        To create A list
-
-       <% end %>
-
-    </div>
-  </div>
-
-  </div>
-
-  <div class="w3-display-topleft w3-padding-large">
-
-  <style>
-  .dropdown {
-      position: relative;
-      display: inline-block;
-  }
-
-  .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #000000;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      padding: 12px 16px;
-      z-index: 1;
-  }
-
-  .dropdown:hover .dropdown-content {
-      display: block;
-  }
-  </style>
-
-  <div class="dropdown w3-container w3-red">
-    <span>Book A Tour</span>
-    <div class="dropdown-content">
-
- <!-- update_lists_url(current_user.id) -->
- <% if current_user %>
-   <%= form_for current_user, url: update_lists_path(current_user.id), method: :post do |f| %>
-      <input type="hidden" name="apartment_id" value="<%=@apartment.id%>">
-
-        <%= f.date_select :name %>
-
-       <%= f.submit %>
-       <% end %>
-       <% else %>
-          <%= link_to "Login", new_user_session_path %> <br>
-                        Or <br>
-          <%= link_to "Sign Up",  new_user_registration_path%> <br>
-                        To create A list
-
-       <% end %>
-
-    </div>
-  </div>
-
-  </div>
-
-</div>
-</body>
+                        </ul>
+                    </footer>
+            </div>
+        <!-- Scripts -->
+            <script src="../assets/js/jquery.min.js"></script>
+            <script src="../assets/js/skel.min.js"></script>
+            <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+            <script src="../assets/js/main.js"></script>
+            <script type="text/javascript">
+             $('.toggle').click(function(){
+                $('.caption').toggle();
+             })
+            </script>
+    </body>
 </html>
