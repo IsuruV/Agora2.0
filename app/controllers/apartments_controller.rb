@@ -1,32 +1,46 @@
 require 'pry'
 
 class ApartmentsController < ApplicationController
-  # skip_before_action :verify_authenticity_token, only: [:home_page, :list, :index]
+  skip_before_action :verify_authenticity_token, only: [:home_page, :list, :index]
+
+  def new
+
+  end
+
+  def create
+
+  end
 
   def index
-
-    # Apartment.apartments_scraper(params[:location])
-    # Apartment.naked_apartments_scraper(params[:location])
-    #put these two in a thread that runs every 5 minutes..
-
     @search = Apartment.where(borough:params[:location])
-
   end
 
   def show
-
     @apartment = Apartment.find_by_id(params[:id])
-    # binding.pry
-    @apartment.apartments_show_scraper
-    # binding.pry
+    @apartment.lists.build(user_id:current_user)
   end
 
 
+  def update
+    @apartment = Apartment.find_by_id(params[:id])
+  
+    @apartment.update(apartment_params)
+
+    flash[:message] = "Added to List"
+    redirect_to(:back)
+
+  end
 
 
+ # private
+  def apartment_params
+    params.require(:apartment).permit(
+      lists_attributes:[
+        :name,
+        :user_id
+      ],
+      list_ids: []
+    )
+  end
 
-  # private
-  # def apartment_params
-  #   params.require(:apartment).permit(:title, :description)
-  # end
 end

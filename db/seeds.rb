@@ -5,3 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+ Scraper.apartments_scraper("queens")
+ Scraper.apartments_scraper("brooklyn")
+ Scraper.apartments_scraper("manhattan")

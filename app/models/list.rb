@@ -2,6 +2,7 @@ class List < ApplicationRecord
   has_many :apartment_lists
   has_many :apartments, through: :apartment_lists
   accepts_nested_attributes_for :apartments
+  # accepts_nested_attributes_for :lists
   belongs_to :user
 end
 

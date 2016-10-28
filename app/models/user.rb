@@ -4,7 +4,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+         :recoverable, :rememberable, :trackable, :omniauthable, :validatable
          devise :omniauthable, :omniauth_providers => [:facebook]
 
          def self.from_omniauth(auth)
@@ -23,6 +23,6 @@ class User < ApplicationRecord
     self.lists.find_or_create_by(name:"Staten Island")
   end
 
-
+# :validatable
 
 end

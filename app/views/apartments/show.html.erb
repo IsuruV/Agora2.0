@@ -3,7 +3,10 @@
      <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
         <link rel="stylesheet" href="../assets/css/main.css" />
+
+
         <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
     </head>
     <body class="is-loading-0 is-loading-1 is-loading-2">
@@ -11,100 +14,68 @@
             <div id="main">
                 <!-- Header -->
                     <header id="header">
-            <div class="dropdown w3-container w3-green">
-              <% if user_signed_in? %>
-                <%= link_to "My Portfolio", user_lists_path(current_user) %>
-                <%end%>
-              <br>
-
-              <div class="dropdown-content">
-                <% if current_user %>
-           <%= form_for current_user, url: update_lists_path(current_user.id), method: :post do |f| %>
-              <input type="hidden" name="apartment_id" value="<%=@apartment.id%>">
-              <%= f.fields_for current_user.lists.build do |list| %>
-                 <%= list.label :name %>
-                 <%= list.text_field :name %><br>
-              <% end %>
-               <%= f.collection_check_boxes :lists, current_user.lists.all, :id, :name %>
-               <%= f.submit %>
-           <% end %>
-           <% end %>
-              </div>
-            </div>
+                      <% if user_signed_in? %>
+                       <%= link_to "My Portfolio", user_lists_path(current_user) %>
+                       <%end%>
                     </header>
                 <!-- Thumbnail -->
                     <section id="thumbnails">
                         <article>
                             <a class="thumbnail" href="<%=@apartment.pictures%>" data-position="left center"><img src="<%=@apartment.pictures%>" alt="" /></a>
                             <h2><%=@apartment.locations%></h2>
-                            <p><%=@apartment.bed_rooms%></p>
+                            <p><%="#{@apartment.bed_rooms} | #{rand(1..3)} Bathroom"%></p>
                         </article>
-            <p>
+                        <p>
                           <%=@apartment.description%>
                         </p>
-                        <!-- <article>
-                            <a class="thumbnail" href="../images/fulls/01.jpg"><img src="../images/thumbs/01.jpg" alt="" /></a>
-                            <h2>Ladybug Insect Nature</h2>
-                            <p>Sed velit lacus, laoreet at venenatis convallis in lorem tincidunt.</p>
-                        </article>
-                        <article>
-                            <a class="thumbnail" href="../images/fulls/03.jpg" data-position="top center"><img src="../images/thumbs/03.jpg" alt="" /></a>
-                            <h2>Bokeh Close Up Nature</h2>
-                            <p>Maecenas eleifend tellus ut turpis eleifend, vitae pretium faucibus.</p>
-                        </article>
-                        <article>
-                            <a class="thumbnail" href="../images/fulls/04.jpg"><img src="../images/thumbs/04.jpg" alt="" /></a>
-                            <h2>Sloe Nature Crop Berry</h2>
-                            <p>Tristique in nulla vel congue. Sed sociis natoque parturient nascetur.</p>
-                        </article>
-                        <article>
-                            <a class="thumbnail" href="../images/fulls/05.jpg" data-position="top center"><img src="../images/thumbs/05.jpg" alt="" /></a>
-                            <h2>Kingfisher Bird Aviary Color Nature Animal Beak</h2>
-                            <p>In pellentesque cursus velit id posuere. Donec vehicula nulla.</p>
-                        </article>
-                        <article>
-                            <a class="thumbnail" href="../images/fulls/06.jpg"><img src="../images/thumbs/06.jpg" alt="" /></a>
-                            <h2>Stork Bird Animal Fly White Stork Rattle Stork</h2>
-                            <p>Nulla dignissim libero maximus tellus varius dictum ut posuere magna.</p>
-                        </article>
-                        <article>
-                            <a class="thumbnail" href="../images/fulls/07.jpg"><img src="../images/thumbs/07.jpg" alt="" /></a>
-                            <h2>Butterfly Nature Living Nature</h2>
-                            <p>Etiam ultricies, lorem quis efficitur porttitor, facilisis ante orci urna.</p>
-                        </article>
-                        <article>
-                            <a class="thumbnail" href="../images/fulls/08.jpg"><img src="../images/thumbs/08.jpg" alt="" /></a>
-                            <h2>Ladybug Insect Nature Meadow</h2>
-                            <p>Nunc egestas congue lorem. Nullam dictum placerat ex sapien tortor mattis.</p>
-                        </article>
-                        <article>
-                            <a class="thumbnail" href="../images/fulls/09.jpg"><img src="../images/thumbs/09.jpg" alt="" /></a>
-                            <h2>Morbi eget vitae adipiscing</h2>
-                            <p>In quis vulputate dui. Maecenas metus elit, dictum praesent lacinia lacus.</p>
-                        </article>
-                        <article>
-                            <a class="thumbnail" href="../images/fulls/10.jpg"><img src="../images/thumbs/10.jpg" alt="" /></a>
-                            <h2>Kolos Grass Meadow Field Green Nature Plant</h2>
-                            <p>Vestibulum ante ipsum primis in faucibus orci luctus ac tincidunt dolor.</p>
-                        </article>
-                        <article>
-                            <a class="thumbnail" href="../images/fulls/04.jpg"><img src="../images/thumbs/04.jpg" alt="" /></a>
-                            <h2>Pharetra ex non faucibus</h2>
-                            <p>Ut sed magna euismod leo laoreet congue. Fusce congue enim ultricies.</p>
-                        </article>
-                        <article>
-                            <a class="thumbnail" href="../images/fulls/12.jpg"><img src="../images/thumbs/12.jpg" alt="" /></a>
-                            <h2>Flower Floral Blossom Nature Spring Summer Bloom</h2>
-                            <p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-                        </article> -->
+
                     </section>
                 <!-- Footer -->
                     <footer id="footer">
                         <ul class="copyright text-center">
+
+
+                                        <div class="w3-dropdown-hover">
+                                          <button class="w3-btn-block">Add to List</button>
+                                          <div class="w3-dropdown-content w3-border w3-wide">
+                                            <% if current_user %>
+                                              <%= form_for @apartment do |f| %>
+
+                                                 <%= f.fields_for :lists, @apartment.lists.build do |list| %>
+                                                    <%= list.hidden_field :user_id, value: current_user.id %>
+                                                    <%= list.label :name %>
+                                                    <%= list.text_field :name %><br>
+                                                 <% end %>
+
+                                                  <%= f.collection_check_boxes :list_ids, current_user.lists.all, :id, :name %>
+
+                                                  <%= f.submit  %>
+                                                  <% end %>
+                                                  <% else %>
+                                                     <%= link_to "Login", new_user_session_path %> <br>
+                                                                   Or <br>
+                                                     <%= link_to "Sign Up",  new_user_registration_path%> <br>
+                                                                   To create A list
+
+                                                  <% end %>
+                                          </div>
+                                        </div>
+
+
              <h3>
-               Agora
-               
+
+                <br>
+                <br>
+               <iframe
+                width="270"
+                height="300"
+                frameborder="0" style="border:0"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCrFym4iM3Lnh6TGX4QNB_jZcpCIDE33Fk
+                  &q=<%=@apartment.locations%>" allowfullscreen>
+              </iframe>
+
              </h3>
+
 
                         </ul>
                     </footer>
@@ -119,5 +90,6 @@
                 $('.caption').toggle();
              })
             </script>
+
     </body>
 </html>
