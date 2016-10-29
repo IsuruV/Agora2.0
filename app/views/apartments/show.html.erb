@@ -28,6 +28,16 @@
                         <p>
                           <%=@apartment.description%>
                         </p>
+                        <p>
+                          Size:
+                          <%= @apartment.sqft%>
+                        </p>
+                        <!-- <p>
+                  Features:
+                          <%@apartment.amementies.split("•").each do |a|%>
+                          <%= a %>
+                          <% end%>
+                        </p> -->
 
                     </section>
                 <!-- Footer -->
@@ -35,21 +45,48 @@
                         <ul class="copyright text-center">
 
 
+                          <div class="w3-dropdown-hover">
+                            <button class="w3-btn-block">Checkout the Apartment</button>
+
+                            <div class="w3-dropdown-content w3-border w3-wide">
+                              <% if current_user %>
+                                <%= form_for @tour do |f| %>
+                                  <%= f.hidden_field :user_id, value: current_user.id %>
+                                  <%= f.hidden_field :apartment_id, value: @apartment.id %>
+
+                                   <%= f.datetime_field :booked, :discard_seconds => true %>
+
+                                    <%= f.submit "Book a Tour"  %>
+                                    <% end %>
+                                    <% else %>
+                                       <%= link_to "Login", new_user_session_path %> <br>
+                                                     Or <br>
+                                       <%= link_to "Sign Up",  new_user_registration_path%> <br>
+                                                     To create A list
+
+                                    <% end %>
+                            </div>
+                          </div>
+
+
+<br>
+<br>
                                         <div class="w3-dropdown-hover">
-                                          <button class="w3-btn-block">Add to List</button>
+                                          <button class="w3-btn-block ">Add to Favorites</button>
                                           <div class="w3-dropdown-content w3-border w3-wide">
                                             <% if current_user %>
                                               <%= form_for @apartment do |f| %>
 
                                                  <%= f.fields_for :lists, @apartment.lists.build do |list| %>
                                                     <%= list.hidden_field :user_id, value: current_user.id %>
-                                                    <%= list.label :name %>
+                                                    <%= list.label "New List" %>
                                                     <%= list.text_field :name %><br>
+                                                    <%= list.label "Current Lists" %>
                                                  <% end %>
 
-                                                  <%= f.collection_check_boxes :list_ids, current_user.lists.all, :id, :name %>
+                                                  <%= f.collection_check_boxes :list_ids, current_user.lists.all, :id, :name %><br>
 
-                                                  <%= f.submit  %>
+                                                  <%= f.submit "Add to Lists"  %>
                                                   <% end %>
                                                   <% else %>
                                                      <%= link_to "Login", new_user_session_path %> <br>
@@ -61,29 +98,7 @@
                                           </div>
                                         </div>
 
-                                        ##
-                                        <div class="w3-dropdown-hover">
-                                          <button class="w3-btn-block">Book a Tour</button>
-                                          <div class="w3-dropdown-content w3-border w3-wide">
-                                            <% if current_user %>
-                                              <%= form_for @tour do |f| %>
-                                                <%= f.hidden_field :user_id, value: current_user.id %>
-                                                <%= f.hidden_field :apartment_id, value: @apartment.id %>
 
-                                                 <%= f.date_field :booked %>
-                                            
-                                                  <%= f.submit  %>
-                                                  <% end %>
-                                                  <% else %>
-                                                     <%= link_to "Login", new_user_session_path %> <br>
-                                                                   Or <br>
-                                                     <%= link_to "Sign Up",  new_user_registration_path%> <br>
-                                                                   To create A list
-
-                                                  <% end %>
-                                          </div>
-                                        </div>
-                                        ##
 
 
              <h3>
