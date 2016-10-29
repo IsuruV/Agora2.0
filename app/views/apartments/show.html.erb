@@ -61,6 +61,29 @@
                                           </div>
                                         </div>
 
+                                        ##
+                                        <div class="w3-dropdown-hover">
+                                          <button class="w3-btn-block">Book a Tour</button>
+                                          <div class="w3-dropdown-content w3-border w3-wide">
+                                            <% if current_user %>
+                                              <%= form_for @tour do |f| %>
+                                                <%= f.hidden_field :user_id, value: current_user.id %>
+                                                <%= f.hidden_field :apartment_id, value: @apartment.id %>
+
+                                                 <%= f.date_field :booked %>
+                                                  <%= f.submit  %>
+                                                  <% end %>
+                                                  <% else %>
+                                                     <%= link_to "Login", new_user_session_path %> <br>
+                                                                   Or <br>
+                                                     <%= link_to "Sign Up",  new_user_registration_path%> <br>
+                                                                   To create A list
+
+                                                  <% end %>
+                                          </div>
+                                        </div>
+                                        ##
+
 
              <h3>
 

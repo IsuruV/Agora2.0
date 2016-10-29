@@ -4,7 +4,7 @@ class ListsController < ApplicationController
 
 
   def new
-    # binding.pry
+
   # if params[:user_id]
   #     if current_user.id == params[:user_id].to_i
       @user = current_user
@@ -48,12 +48,20 @@ end
 
 
   def index
-    # binding.pry
+    # if current_user.tours
+    #   @tours = current_user.tours
+    # end
+    current_user.tours
+    @most_popular = Apartment.most_popular
     if params[:lists_id]
       @current_list = current_user.lists.find_by_id(params[:lists_id])
+      # @tours = nil
+      current_user.tours
 
     else
-        @current_list = current_user.lists.first
+            @current_list = current_user.lists.first
+      # @tours = current_user.tours
+      current_user.tours
     end
   end
 

@@ -12,10 +12,13 @@ class ApartmentsController < ApplicationController
   end
 
   def index
+
     @search = Apartment.where(borough:params[:location])
   end
 
   def show
+    @tour = Tour.new
+
     @apartment = Apartment.find_by_id(params[:id])
     @apartment.lists.build(user_id:current_user)
   end
@@ -23,7 +26,7 @@ class ApartmentsController < ApplicationController
 
   def update
     @apartment = Apartment.find_by_id(params[:id])
-  
+
     @apartment.update(apartment_params)
 
     flash[:message] = "Added to List"

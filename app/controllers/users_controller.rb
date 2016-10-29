@@ -26,7 +26,11 @@ class UsersController < ApplicationController
   end
 
   def location
-  
+
+  end
+
+  def tours
+    @tours = current_user.tours
   end
 
 end
