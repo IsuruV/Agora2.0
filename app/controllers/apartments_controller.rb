@@ -28,7 +28,7 @@ class ApartmentsController < ApplicationController
     @apartment = Apartment.find_by_id(params[:id])
 
     @apartment.update(apartment_params)
-
+    flash[:error] = @apartment.errors.messages
     flash[:message] = "Added to List"
     redirect_to(:back)
 

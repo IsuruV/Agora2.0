@@ -4,7 +4,7 @@ class ToursController < ApplicationController
   end
   def create
     @tour = Tour.find_or_create_by(tour_params)
-    flash[:error] = @tour.errors.messages
+    flash[:error] = @tour.errors.messages[:booked].first
     redirect_to(:back)
   end
 

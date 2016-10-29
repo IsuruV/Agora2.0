@@ -7,7 +7,6 @@ class Apartment < ApplicationRecord
  has_many :lists, :through => :apartment_lists
  has_many :users, :through => :lists
  has_many :tours
-
  scope :most_popular, -> { joins(:lists).group(:apartment_id).having("COUNT(*)").order('id DESC').limit(3) }
 
  # accepts_nested_attributes_for :lists
@@ -24,4 +23,12 @@ class Apartment < ApplicationRecord
     end
   end
 
+
 end
+
+
+# def clickbait?
+#   if WORDS.none? { |word| word.match title }
+#     errors.add(:title, "must be clickbait")
+#   end
+# end
