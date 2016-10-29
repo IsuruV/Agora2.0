@@ -34,6 +34,10 @@ ActiveRecord::Schema.define(version: 20161028164240) do
     t.string "borough"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.integer "apartment_list_id"
+    t.string  "text"
+  end
 
   create_table "lists", force: :cascade do |t|
     t.string   "name"
@@ -41,13 +45,6 @@ ActiveRecord::Schema.define(version: 20161028164240) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "comments", force: :cascade do |t|
-    t.integer "apartment_list_id"
-    t.string  "text"
-  end
-
-
 
   create_table "scrapers", force: :cascade do |t|
     t.datetime "created_at", null: false
