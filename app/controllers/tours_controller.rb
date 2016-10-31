@@ -8,6 +8,10 @@ class ToursController < ApplicationController
     redirect_to(:back)
   end
 
+  def destroy
+    # @tour = Tour.fin
+  end
+
 private
   def tour_params
     params.require(:tour).permit(

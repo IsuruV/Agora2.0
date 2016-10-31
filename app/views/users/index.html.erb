@@ -2,22 +2,19 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Landing Zero Free Bootstrap Theme with Video</title>
+    <title>Agora</title>
     <meta name="description" content="This is a free Bootstrap landing page theme created for BootstrapZero. Feature video background and one page design." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Codeply">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-
     <header id="first">
         <div class="header-content">
             <div class="inner">
@@ -49,13 +46,10 @@
     <form  action="/apartments" method="get">
       <input type="text" name="location" placeholder="Enter Borough" value= "<%=@location if @location%>">
     </form>
-
     <form class="" action="/users" method="get">
       <input type="hidden" name="location" value="<%=fetch_location%>">
       <button class="w3-btn w3-purple w3-small" type="submit" name="button">Current Location</button>
     </form>
-
-
   </body>
             </div>
         </div>
@@ -63,40 +57,27 @@
             <source src="https://s3-us-west-2.amazonaws.com/coverr/mp4/Traffic-blurred2.mp4" type="video/mp4">Your browser does not support the video tag. I suggest you upgrade your browser.
         </video>
     </header>
-
     <div id="aboutModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <h3 class="text-center">First Modal</h3>
-                <h5 class="text-center">
-                    Your New Apartment Awaits
-                </h5>
+                <h3 class="text-center">Welcome to the future of Real Estate</h3>
                 <p class="text-justify">
                   <%= render 'signup' %>
                 </p>
-                <p class="text-center"><a href="http://www.bootstrapzero.com">Forgot Password</a></p>
-                <br/>
-                <button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true"> Login </button>
             </div>
         </div>
         </div>
         </div>
-
         <div id="aboutModal2" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h3 class="text-center">Second Modal</h3>
-                    <h5 class="text-center">
-                        Your New Apartment Awaits
-                    </h5>
+                    <h3 class="text-center">Your New Apartment Awaits</h3>
                     <p class="text-justify">
                       <%= render 'login' %>
                     </p>
-                    <p class="text-center"><a href="http://www.bootstrapzero.com">Forgot Password</a></p>
                     <br/>
-                    <button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true"> Login </button>
                 </div>
             </div>
             </div>

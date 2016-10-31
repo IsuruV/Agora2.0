@@ -3,5 +3,5 @@ class List < ApplicationRecord
   has_many :apartments, through: :apartment_lists
   accepts_nested_attributes_for :apartments
   belongs_to :user
-  # validates :name, :presence => true
+  validates :name, :presence => true
 end

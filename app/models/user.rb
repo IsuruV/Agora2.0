@@ -15,14 +15,7 @@ class User < ApplicationRecord
            end
          end
 
-  def creat_default_lists
-    self.lists.find_or_create_by(name:"Booked Tours")
-    self.lists.find_or_create_by(name:"Brooklyn")
-    self.lists.find_or_create_by(name:"Queens")
-    self.lists.find_or_create_by(name:"Manhattan")
-    self.lists.find_or_create_by(name:"Bronx")
-    self.lists.find_or_create_by(name:"Staten Island")
-  end
+
 
 # :validatable
 

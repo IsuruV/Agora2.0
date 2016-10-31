@@ -39,13 +39,13 @@ class Scraper < ApplicationRecord
        end
        apartment.description = @description
       begin
-      @pet_policy = show_page.css("section").css(".specGroup").first.css(".specList").css(".petPolicyDetails").text.strip
+        @pet_policy = show_page.css("section").css(".specGroup").first.css(".specList").css(".petPolicyDetails").text.strip
       rescue
         @pet_policy = "No policy"
       end
       apartment.pet_policy = @pet_policy
       begin
-      @parking = show_page.css("section").css(".specGroup").first.css(".specList").css(".parkingDetails").text.strip.split.join(" ")
+        @parking = show_page.css("section").css(".specGroup").first.css(".specList").css(".parkingDetails").text.strip.split.join(" ")
       rescue
         @parking = "Not available"
       end

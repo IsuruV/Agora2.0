@@ -2,6 +2,13 @@
 <html>
 <title>Agora - Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+<link rel="stylesheet" href="css/styles.css" />
 <style>
 body,h1,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 .w3-sidenav a,.w3-sidenav h4 {font-weight:bold}
@@ -23,15 +30,10 @@ body,h1,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
   </div>
   <a href="/lists/new" onclick="w3_close()" class="w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>Create a New List</a>
   <a href="#portfolio" onclick="w3_close()" class="w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>My Account</a>
-  <h4 class="w3-padding w3-text-teal">Top 3 listings</h4>
-
-  <%@most_popular.each do |apartment|%>
-  <a href="/apartments/<%=apartment.id%>" onclick="w3_close()" ><img src="<%=apartment.pictures%>"  HEIGHT="40" WIDTH="50" BORDER="0" /> <p></p><%=apartment.locations%></a>
-  <% end %>
+  <a href="#" onclick="w3_close()" class="w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>About</a>
 
 
-
-
+    Popular Apartment</a>
 </nav>
 <!-- Overlay effect when opening sidenav on small screens -->
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
@@ -51,7 +53,7 @@ body,h1,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
     <%end%>
     <div class="w3-section w3-bottombar w3-padding-16">
       <span class="w3-margin-right">Filter:</span>
-        <%=link_to "Booked Tours", booked_path(current_user), class:"w3-btn w3-purple"%>
+      <%=link_to "Booked Tours", booked_path(current_user), class:"w3-btn w3-purple"%>
       <% current_user.lists.each do |list| %>
       <a href="/users/<%=current_user.id%>/lists/<%=list.id%>"class="w3-btn"><%=list.name%><%=link_to "x", delete_list_path(list)%></a>
       <%end%>
@@ -63,6 +65,7 @@ body,h1,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
         <div class="container-fluid">
             <div class="row no-gutter">
               <% @ary = [] %>
+
               <%if @current_list %>
                 <%@current_list.apartments.each do |apartment| %>
                   <%if apartment[:price_range] != nil%>
@@ -73,43 +76,48 @@ body,h1,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
                   <%apartment[:price_range]%>
                 <%end.each do |apartment| %>
                 <% if apartment.links != 'favoriteIcon neutral'%>
-                <%@join_comments = ApartmentList.find_by(id:apartment.apartment_lists)%>
+                  <%@join_comments = ApartmentList.find_by(id:apartment.apartment_lists)%>
                 <div class="col-lg-4 col-sm-6">
                     <a href="#galleryModal" class="gallery-box" data-toggle="modal" data-src="<%=apartment.pictures%>">
                       <div class="image">
                       <img src="<%=apartment.pictures%>" class="img-responsive" alt="Image 1">
                         <a href="<%=apartment_path(apartment)%>"><h2><%= apartment.price_range%></h2></a>
+                        <!-- <%=link_to "delete", delete_apartment_from_list_path(apartment,@current_list.id)%> -->
                         <a href="/lists/<%=@current_list.id%>/apartments/<%=apartment.id%>/delete_apartment_from_list">Delete</a>
-                        <br>
-                        <%@join_comments.comments.each do |comment| %>
-                          <%=comment.text%> <a href='/comments/<%=comment.id%>/delete'>delete</a><br>
-                        <%end%>
-                        <br>
-                        <div class="w3-dropdown-hover">
-                          <button class="w3-btn-block">Add a Note</button>
-                          <div class="w3-dropdown-content w3-border w3-wide">
-                              <%= form_for Comment.new do |f| %>
-                                 <%= f.hidden_field :list_id, value: @current_list.id %>
-                                 <%= f.hidden_field :apartment_id, value: apartment.id %>
-                                 <%= f.label :text %>
-                                 <%= f.text_field :text %>
-                                 <%= f.submit "Create Note"%>
-                              <% end %>
-                          </div>
-                        </div>
+
+                          <%@join_comments.comments.each do |comment| %>
+                            <%=comment.text%>
+                          <%end%>
                       </div>
                     </a>
                 </div>
                 <% end %>
               <%end%>
             <%end%>
-    </section>
-  </div>
+              </section>
+
+
   <!-- Pagination -->
   <div class="w3-center w3-padding-32">
     <ul class="w3-pagination">
       <li><a class="w3-black" href="#">1</a></li>
     </ul>
   </div>
+<script>
+// Script to open and close sidenav
+function w3_open() {
+    document.getElementById("mySidenav").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+function w3_close() {
+    document.getElementById("mySidenav").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+<script src="js/scripts.js"></script>
 </body>
 </html>

@@ -7,7 +7,8 @@ Rails.application.routes.draw do
 
   resources :apartments
 
-  resources :apartments
+  get '/comments/:id/delete' => "comments#destroy"
+  resources :comments
 
   resources :lists
 
@@ -22,6 +23,8 @@ Rails.application.routes.draw do
   get '/users/:id/tours' => "users#tours", as: "booked"
   post "/apartments/:id" => "lists#update"
   root "users#index"
+
+
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

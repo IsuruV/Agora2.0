@@ -12,8 +12,7 @@ class ApartmentsController < ApplicationController
   end
 
   def index
-
-    @search = Apartment.where(borough:params[:location])
+    @ary = Apartment.where(borough:params[:location]).lowest_highest
   end
 
   def show
@@ -42,6 +41,10 @@ class ApartmentsController < ApplicationController
         :name,
         :user_id
       ],
+      commnet_attributes:[
+
+      :text
+    ],
       list_ids: []
     )
   end

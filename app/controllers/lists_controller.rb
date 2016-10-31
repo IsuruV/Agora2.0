@@ -52,6 +52,7 @@ end
     #   @tours = current_user.tours
     # end
     current_user.tours
+  
     @most_popular = Apartment.most_popular
     if params[:lists_id]
       @current_list = current_user.lists.find_by_id(params[:lists_id])
