@@ -8,3 +8,4 @@
  Scraper.apartments_scraper("queens")
  Scraper.apartments_scraper("brooklyn")
  Scraper.apartments_scraper("manhattan")
+ Scraper.apartments_scraper("bronx")
