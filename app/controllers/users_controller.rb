@@ -31,6 +31,7 @@ class UsersController < ApplicationController
 
   def tours
     @tours = current_user.tours
+    render 'tours/tours'
   end
 
 end

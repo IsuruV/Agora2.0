@@ -1,11 +1,23 @@
-    <header id="first">
-        <div class="header-content">
-            <div class="inner">
-                <h1 class="cursive">Agora</h1>
-                <h4>Find Your Dream Apartment</h4>
-                <hr>
-                <head>
-  <style>
+<header id="first">
+    <div class="header-content">
+      <div class="inner">
+        <h1 class="cursive">Agora</h1>
+        <h4>Find Your Dream Apartment</h4>
+        <form  action="/apartments" method="get">
+          <input type="text" name="location" placeholder="Enter Borough" value= "<%=@location if @location%>">
+        </form>
+        <form class="" action="/users" method="get">
+          <input type="hidden" name="location" value="<%=fetch_location%>">
+          <button class="w3-btn w3-purple w3-small" type="submit" name="button">Current Location</button>
+        </form>
+      </div>
+    </div>
+</header>
+ <!-- Background Video  -->
+ <video autoplay="" loop="" class="fillWidth fadeIn wow collapse in" data-wow-delay="0.5s" poster="https://s3-us-west-2.amazonaws.com/coverr/poster/Traffic-blurred2.jpg" id="video-background">
+   <source src="https://s3-us-west-2.amazonaws.com/coverr/mp4/Traffic-blurred2.mp4" type="video/mp4">Your browser does not support the video tag. I suggest you upgrade your browser.
+ </video>
+<style>
   input[type=text] {
       width: 200px;
       box-sizing: border-box;
@@ -23,45 +35,4 @@
   input[type=text]:focus {
       width: 100%;
   }
-  </style>
-  </head>
-  <body>
-    <form  action="/apartments" method="get">
-      <input type="text" name="location" placeholder="Enter Borough" value= "<%=@location if @location%>">
-    </form>
-    <form class="" action="/users" method="get">
-      <input type="hidden" name="location" value="<%=fetch_location%>">
-      <button class="w3-btn w3-purple w3-small" type="submit" name="button">Current Location</button>
-    </form>
-  </body>
-            </div>
-        </div>
-        <video autoplay="" loop="" class="fillWidth fadeIn wow collapse in" data-wow-delay="0.5s" poster="https://s3-us-west-2.amazonaws.com/coverr/poster/Traffic-blurred2.jpg" id="video-background">
-            <source src="https://s3-us-west-2.amazonaws.com/coverr/mp4/Traffic-blurred2.mp4" type="video/mp4">Your browser does not support the video tag. I suggest you upgrade your browser.
-        </video>
-    </header>
-    <div id="aboutModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <h3 class="text-center">Welcome to the future of Real Estate</h3>
-                <p class="text-justify">
-                  <%= render 'signup' %>
-                </p>
-            </div>
-        </div>
-        </div>
-        </div>
-        <div id="aboutModal2" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <h3 class="text-center">Your New Apartment Awaits</h3>
-                    <p class="text-justify">
-                      <%= render 'login' %>
-                    </p>
-                    <br/>
-                </div>
-            </div>
-            </div>
-            </div>
+</style>
